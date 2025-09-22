@@ -5,7 +5,6 @@ import (
 	"regexp"
 	"strings"
 	"text/template"
-
 	_ "unsafe"
 
 	_ "helm.sh/helm/v3/pkg/engine" // Import to work with Helm's private functions (via go linkname)
@@ -37,7 +36,7 @@ var (
 	controlRe   = regexp.MustCompile(`^\s*(if|range|with|define|block)\b`)
 	elseRe      = regexp.MustCompile(`^\s*else\b`)
 	endRe       = regexp.MustCompile(`^\s*end\b`)
-	simpleRe    = regexp.MustCompile(`^\s*(include|fail|printf)\b`)
+	simpleRe    = regexp.MustCompile(`^\s*(fail|printf)\b`)
 	endInLineRe = regexp.MustCompile(`\{\{(-?)(\s*)end\b[^}]*(-?)\}\}`)
 
 	// Для извлечения первого слова
@@ -50,7 +49,6 @@ func helmFuncMap() template.FuncMap
 // validateTemplateSyntax validates the given template source string using
 // Helm function set. Returns an error if the template has invalid syntax.
 func validateTemplateSyntax(src string) error {
-
 	// Get Helm's built-in function map
 	helmFuncMap := helmFuncMap()
 
